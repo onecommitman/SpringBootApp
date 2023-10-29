@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Operations</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getId()}">ID</td>
+            <td th:text="${user.getName()}">Name</td>
+            <td th:text="${user.getLastName()}">Surname</td>
+            <td th:text="${user.getAge()}">Age</td>
+            <td>
+
+                <!--<input type="button" value="Edit" onclick="window.location.href = '@{/users/edit?id={id}(id=${user.getId()})}'"/>-->
+                <a th:href="@{/users/edit?id={id}(id=${user.getId()})}">Edit</a>
+                <!--<a th:href="@{/users/edit?id={id}(id=${user.getId()})}">Delete</a>-->
+                <form th:method="DELETE" th:action="@{/users?id={id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
+                <!--<input type="button" value="Delete" onclick="window.location.href = 'users'"/>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<br>
+
+<input type="button" value="Add" onclick="window.location.href = 'users/new'"/>
+
+</body>
+</html>
